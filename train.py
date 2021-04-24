@@ -9,16 +9,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import joblib
 
-from azureml.core import Workspace, Dataset, Run
+from azureml.core import Run
 
-subscription_id = 'ca1598e0-85dc-47d5-b06d-41b5342b4989'
-resource_group = 'UdacityMLAzureCapstone'
-workspace_name = 'ws_udacity_capstone'
-
-workspace = Workspace(subscription_id, resource_group, workspace_name)
-
-dataset = Dataset.get_by_name(workspace, name='heart_failure_ds')
-df = dataset.to_pandas_dataframe()
+df = pd.read_csv('data/heart_failure_clinical_records_dataset.csv')
 
 x = df.drop('DEATH_EVENT', axis=1)
 y = df['DEATH_EVENT']
