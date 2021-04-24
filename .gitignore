@@ -9,6 +9,9 @@ __pycache__/
 .DS_Store
 */.DS_Store
 
+config.json
+best_hyperdrive_model.pkl
+
 # Distribution / packaging
 .Python
 build/
