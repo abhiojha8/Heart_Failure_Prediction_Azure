@@ -11,6 +11,7 @@ __pycache__/
 
 config.json
 best_hyperdrive_model.pkl
+best_automl_model.pkl
 
 # Distribution / packaging
 .Python
