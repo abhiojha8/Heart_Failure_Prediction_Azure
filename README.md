@@ -1,25 +1,69 @@
-*NOTE:* This file is a template that you can use to create the README for your project. The *TODO* comments below will highlight the information you should be sure to include.
+# Heart Failure Prediction using ML Azure
 
-# Your Project Title Here
+This project uses machine learning to predict mortality caused by heart failure. I used 2 different approaches to build and test ML models in Azure.
+- Custom Model with best features using Hyperdrive: I used Logistic Regression algorithm and tuned it using Azure Hyperdrive and parameter sampler to get the best model hyperparameters.
+- AutoML: Found the best model for this task using Azure's AutoML feature.
 
-*TODO:* Write a short introduction to your project.
-
-## Project Set Up and Installation
-*OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
+On comparing the performance of both the models, I found out that the Voting Ensemble model found using AutoML had the best performance. I then deployed this model and created a REST API endpoint, which was later consumed and tested.
 
 ## Dataset
 
 ### Overview
-*TODO*: Explain about the data you are using and where you got it from.
+This dataset used in this project is taken from [Kaggle](https://www.kaggle.com/andrewmvd/heart-failure-clinical-data). It consists of 12 distinct features and 1 target as summarized below:
+- **Input features** - Age, Anaemia, Creatinine-phosphokinase, Diabetes, Ejection_fraction, High_blood_pressure, Platelets, Serum_creatinine, Serum_sodium, Sex, Smoking, Time
+- **Target** - DEATH_EVENT
+
+The dataset profile is as shown below:
+![dataset-profile-1](images/dataset_profile_1.png)
+![dataset-profile-2](images/dataset_profile_2.png)
+![dataset-profile-3](images/dataset_profile_3.png)
+![dataset-profile-4](images/dataset_profile_4.png)
 
 ### Task
-*TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
+I used this dataset for training and testing the custom Logistic Regression model and also various AutoML models. The best fitted model was then used to predict mortality caused by heart failure.
 
 ### Access
-*TODO*: Explain how you are accessing the data in your workspace.
+I added the csv file containing the data in the project directory. Then I created a pandas dataframe to explore the data and split it into training and testing. I also used Azure datastore to register this dataset in Azure, so that I can graphically explore the data in ML Azure Studio.
+
+![registered-dataset](images/registered_dataset.png)
 
 ## Automated ML
-*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
+I used the following automl settings and configuration parameters:
+```python
+automl_settings = { "n_cross_validations": 2,
+                    "primary_metric": 'accuracy',
+                    "enable_early_stopping": True,
+                    "max_concurrent_iterations": 4,
+                    "experiment_timeout_minutes": 15,
+                }
+
+automl_config = AutoMLConfig(compute_target = compute_target,
+                            task='classification',
+                            training_data=heart_failure_ds,
+                            label_column_name='DEATH_EVENT',
+                            path = 'automl_runs',
+                            featurization= 'auto',
+                            debug_log = "automl_errors.log",
+                            enable_onnx_compatible_models=True,
+                            **automl_settings)
+```
+**AutoML Settings**
+- *n_cross_validations*: I chose 2 cross validations, which means that the metrics are calculated as an average of 2 folds.
+- *primary metric*: I chose `accuracy` as it is the default metric for classification tasks. 
+- *enable_early_stopping*: I set this value to `True` so that the model can stop training once it stops improving.
+- *max_concurrent_iterations*: This value is set at 4, which means that there can be at max 4 iterations in parallel.
+- *experiment_timeout_minutes*: To save costs, I chose this value to be 15 mins. After this time the AutoML experiement will automatically stop.
+
+**AutoML Config**
+- *compute_target*: This defines the Azure Compute target that I set up for running this experiment.
+- *task*: Since this is a classification problem, this value is set as `classification`.
+- *training_data*: The training data used for this experiement. It contains both - training features and the target label.
+- *label_column_name*: Target label column name, which is `DEATH_EVENT`.
+- *path*: path to AzureML project folder.
+- *featurization*: Setting this value to `auto` means that featurization will be done automatically.
+- *debug_log*: path of the log file.
+- *enable_onnx_compatible_models*: Setting this value to `True` enables `onnx_compatible_models`.
+
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
