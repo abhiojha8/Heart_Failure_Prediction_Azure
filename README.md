@@ -100,7 +100,22 @@ Here is the output of the `RunDetails` widget:
 ![run-details-hyperdrive](images/run_details_hyperdrive.png)
 
 ## Model Deployment
-*TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+For deploying the model I first selected the registered model, which was the Voting Ensemble model from AutoML runs. Next, I prepared an inference config, entry script and selected a compute target for the inference run. Finally, I deployed the model using ACI web service and tested the REST API endpoint. Finally, I printed logs and deleted the service endpoint.
+
+- *Registered Model*
+![registered-models](images/registered_model.png)
+
+- *Inference and Deployment Config*
+![inference-deployment-config](images/inference_deployment_config.png)
+
+- *Testing the endpoint*
+![testing-endpoint](images/testing_endpoint.png)
+
+- *Logs*
+![logs](images/logs.png)
+
+- *Deleting the service*
+![delete-service](images/delete_service.png)
 
 ## Screen Recording
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
@@ -108,5 +123,3 @@ Here is the output of the `RunDetails` widget:
 - Demo of the deployed  model
 - Demo of a sample request sent to the endpoint and its response
 
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
