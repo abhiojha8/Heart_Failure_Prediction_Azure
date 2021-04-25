@@ -68,6 +68,10 @@ automl_config = AutoMLConfig(compute_target = compute_target,
 ### Results
 The best performing model using AutoML was "Voting Ensemble" with an Accuracy of 0.86293 and weighted AUC of 0.898. These metrics could be improved by trying different AutoML configurations and letting AutoML run for more time.
 
+
+
+
+
 ![best-automl-metrics](images/best_automl_metrics.png)
 
 The top 5 AutoML models are as below:
@@ -76,13 +80,9 @@ The top 5 AutoML models are as below:
 Here is the screenshot of the `RunDetails` widget:
 ![run-details](images/run_details.png)
 
-## Hyperparameter Tuning
-I chose 
-
-
-### Results
-*TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+## Hyperdrive
 I chose Logistic Regression classifier because it is a good machine learning model for univariate classification problems. The hyperparameters choices that were tested for this Logistic regression classifier were defined by the parameter sampler as shown below:
+
 ```python
 ps = RandomParameterSampling(
     {
@@ -96,7 +96,7 @@ Here, `C` is the regularization strength, and `max_iter` defines the total numbe
 I got an accuracy of 0.83 with `C=1` and `max_iterations=50`.
 ![hyperdrive-metrics](images/hyperdrive_metrics.png)
 
-Here is the output of the `RunDetails` widget:
+Here is the output of the `RunDetails` widget showing that the Run is completed.
 ![run-details-hyperdrive](images/run_details_hyperdrive.png)
 
 ## Model Deployment
