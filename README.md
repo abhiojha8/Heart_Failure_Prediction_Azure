@@ -66,16 +66,14 @@ automl_config = AutoMLConfig(compute_target = compute_target,
 
 
 ### Results
-The best performing model using AutoML was "Voting Ensemble" with an Accuracy of 0.86293 and weighted AUC of 0.898. These metrics could be improved by trying different AutoML configurations and letting AutoML run for more time.
+The best performing model using AutoML was "Voting Ensemble" with an Accuracy of 0.853 and weighted AUC of 0.896. These metrics could be improved by trying different AutoML configurations and letting AutoML run for more time.
 
+![voting-ensemble](images/voting_ensemble.png)
 
-
-
-
-![best-automl-metrics](images/best_automl_metrics.png)
+![best-automl-metrics](images/best_automl_metrics_1.png)
 
 The top 5 AutoML models are as below:
-![top5-automl](images/top5_automl.png)
+![top5-automl](images/top5_models.png)
 
 Here is the screenshot of the `RunDetails` widget:
 ![run-details](images/run_details.png)
@@ -102,11 +100,15 @@ Here is the output of the `RunDetails` widget showing that the Run is completed.
 ## Model Deployment
 For deploying the model I first selected the registered model, which was the Voting Ensemble model from AutoML runs. Next, I prepared an inference config, entry script and selected a compute target for the inference run. Finally, I deployed the model using ACI web service and tested the REST API endpoint. Finally, I printed logs and deleted the service endpoint.
 
-- *Registered Model*
-![registered-models](images/registered_model.png)
+- *Registered Model* - Here you can see that the best HyperDrive and AutoML models are registered.
+![registered-models](images/registered_models.png)
 
 - *Inference and Deployment Config*
 ![inference-deployment-config](images/inference_deployment_config.png)
+
+- Deployed model (Best AutoML) endpoint
+
+  ![deployed-model-endpoint](images/deployed_model_endpoint.png)
 
 - *Testing the endpoint*
 ![testing-endpoint](images/testing_endpoint.png)
