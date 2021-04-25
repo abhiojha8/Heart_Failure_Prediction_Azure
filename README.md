@@ -169,6 +169,12 @@ For deploying the model I first selected the registered model, which was the Vot
 - *Deleting the service*
 ![delete-service](images/delete_service.png)
 
+## Future Improvements
+
+* Increase the training time for AutoML
+* Experiment with more Classification models (especially Random Forest) and large sample of hyperparameters.
+
 ## Screen Recording
+
 https://youtu.be/afsK0swzD5c
 
