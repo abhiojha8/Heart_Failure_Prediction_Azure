@@ -66,18 +66,38 @@ automl_config = AutoMLConfig(compute_target = compute_target,
 
 
 ### Results
-*TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
+The best performing model using AutoML was "Voting Ensemble" with an Accuracy of 0.86293 and weighted AUC of 0.898. These metrics could be improved by trying different AutoML configurations and letting AutoML run for more time.
 
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+![best-automl-metrics](images/best_automl_metrics.png)
+
+The top 5 AutoML models are as below:
+![top5-automl](images/top5_automl.png)
+
+Here is the screenshot of the `RunDetails` widget:
+![run-details](images/run_details.png)
 
 ## Hyperparameter Tuning
-*TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
+I chose 
 
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+I chose Logistic Regression classifier because it is a good machine learning model for univariate classification problems. The hyperparameters choices that were tested for this Logistic regression classifier were defined by the parameter sampler as shown below:
+```python
+ps = RandomParameterSampling(
+    {
+        '--C' : choice(0.01,0.1,1,10,100),
+        '--max_iter': choice(50,100)
+    }
+)
+```
+Here, `C` is the regularization strength, and `max_iter` defines the total number of iterations. Some options available in the Azure sampling library are `RandomParameterSampling`, `GridParameterSampling`, `BayesianParameterSamping`, etc. Out of these, I used `RandomParameterSampling` as it is fast and supports early termination  for low-performance runs.
 
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+I got an accuracy of 0.83 with `C=1` and `max_iterations=50`.
+![hyperdrive-metrics](images/hyperdrive_metrics.png)
+
+Here is the output of the `RunDetails` widget:
+![run-details-hyperdrive](images/run_details_hyperdrive.png)
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
