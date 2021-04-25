@@ -118,8 +118,5 @@ For deploying the model I first selected the registered model, which was the Vot
 ![delete-service](images/delete_service.png)
 
 ## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
-- A working model
-- Demo of the deployed  model
-- Demo of a sample request sent to the endpoint and its response
+https://youtu.be/afsK0swzD5c
 
