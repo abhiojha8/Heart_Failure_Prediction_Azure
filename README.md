@@ -64,6 +64,12 @@ automl_config = AutoMLConfig(compute_target = compute_target,
 - *debug_log*: path of the log file.
 - *enable_onnx_compatible_models*: Setting this value to `True` enables `onnx_compatible_models`.
 
+**Best AutoML model Parameters**
+
+The parameters for the best fitted AutoML model can be printed using `print(fit_model)`, as I have done in `automl.ipynb`. The output is as follows:
+
+![fitted-model](images/fitted_model.png)
+
 
 ### Results
 The best performing model using AutoML was "Voting Ensemble" with an Accuracy of 0.853 and weighted AUC of 0.896. These metrics could be improved by trying different AutoML configurations and letting AutoML run for more time.
@@ -109,6 +115,50 @@ For deploying the model I first selected the registered model, which was the Vot
 - Deployed model (Best AutoML) endpoint
 
   ![deployed-model-endpoint](images/deployed_model_endpoint.png)
+
+- *Compose and send request* - This is done in the file `endpoint.py`. At first I set the values of `scoring_uri `and `key` to be the same as values showed in Azure console. Next, I created sample data for testing and converted it to a JSON string as follows:
+
+  ```python
+  data = {"data":
+          [
+            {
+             "age": 61, 
+             "anaemia": 0, 
+             "creatinine_phosphokinase": 582, 
+             "diabetes": 1, 
+             "ejection_fraction": 20, 
+             "high_blood_pressure": 1, 
+             "platelets": 265000, 
+             "serum_creatinine": 1.9, 
+             "serum_sodium": 130, 
+             "sex": 1, 
+             "smoking": 0,
+             "time": 4
+            }
+        ]
+      }
+  # Convert to JSON string
+  input_data = json.dumps(data)
+  with open("data.json", "w") as _f:
+      _f.write(input_data)
+  ```
+
+  Then we set the content type:
+
+  ```python
+  # Set the content type
+  headers = {'Content-Type': 'application/json'}
+  # If authentication is enabled, set the authorization header
+  headers['Authorization'] = f'Bearer {key}'
+  ```
+
+  Finally we make the request and print the response on screen:
+
+  ```python
+  # Make the request and display the response
+  resp = requests.post(scoring_uri, input_data, headers=headers)
+  print(resp.json())
+  ```
 
 - *Testing the endpoint*
 ![testing-endpoint](images/testing_endpoint.png)
