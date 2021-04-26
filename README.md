@@ -84,6 +84,10 @@ The top 5 AutoML models are as below:
 Here is the screenshot of the `RunDetails` widget:
 ![run-details](images/run_details.png)
 
+Here is the screenshot of the best AutoML model showing its runID, run properties and metrics:
+
+![best-automl-model-run-id](images/best_automl_model_run_id.png)
+
 ## Hyperdrive
 I chose Logistic Regression classifier because it is a good machine learning model for univariate classification problems. The hyperparameters choices that were tested for this Logistic regression classifier were defined by the parameter sampler as shown below:
 
