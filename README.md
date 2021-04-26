@@ -97,11 +97,15 @@ ps = RandomParameterSampling(
 ```
 Here, `C` is the regularization strength, and `max_iter` defines the total number of iterations. Some options available in the Azure sampling library are `RandomParameterSampling`, `GridParameterSampling`, `BayesianParameterSamping`, etc. Out of these, I used `RandomParameterSampling` as it is fast and supports early termination  for low-performance runs.
 
-I got an accuracy of 0.83 with `C=1` and `max_iterations=50`.
+I got an accuracy of 0.83 with `C=100` and `max_iterations=100`.
 ![hyperdrive-metrics](images/hyperdrive_metrics.png)
 
 Here is the output of the `RunDetails` widget showing that the Run is completed.
 ![run-details-hyperdrive](images/run_details_hyperdrive.png)
+
+Here is the screenshot of the best hyperdrive model showing model parameters and the runID:
+
+![hyperdrive-model-runid](images/hyperdrive_model_run_id.png)
 
 ## Model Deployment
 For deploying the model I first selected the registered model, which was the Voting Ensemble model from AutoML runs. Next, I prepared an inference config, entry script and selected a compute target for the inference run. Finally, I deployed the model using ACI web service and tested the REST API endpoint. Finally, I printed logs and deleted the service endpoint.
